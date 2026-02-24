@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Niaz De Coder Hotel Demo</title>
+  <!-- Font Awesome 6 (free) for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Google Fonts: modern sans-serif -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: #1e2b37;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+      background-color: #fefefe;
+    }
+
+    /* Color palette */
+    :root {
+      --primary: #0b4f6c;    /* deep teal */
+      --primary-light: #1e6f8f;
+      --accent: #e9b741;      /* warm gold */
+      --light-bg: #f5f7fa;
+      --dark: #1e2b37;
+      --gray: #5f6c7a;
+      --white: #ffffff;
+      --shadow: 0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.02);
+    }
+
+    /* Utility */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    section {
+      padding: 5rem 0;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+    .section-subtitle {
+      font-size: 1.1rem;
+      color: var(--gray);
+      max-width: 700px;
+      margin-bottom: 3rem;
+    }
+
+    /* Buttons & links */
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 2rem;
+      border-radius: 40px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      border: none;
+      font-size: 1rem;
+    }
+    .btn-primary {
+      background-color: var(--accent);
+      color: var(--dark);
+      box-shadow: 0 4px 14px rgba(233, 183, 65, 0.4);
+    }
+    .btn-primary:hover {
+      background-color: #d8a52b;
+      transform: translateY(-2px);
+    }
+    .btn-outline {
+      background-color: transparent;
+      border: 2px solid var(--white);
+      color: var(--white);
+    }
+    .btn-outline:hover {
+      background-color: var(--white);
+      color: var(--primary);
+    }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      background-color: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 2px 15px rgba(0,0,0,0.04);
+      z-index: 100;
+      padding: 0.8rem 0;
+    }
+    .header-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .logo img {
+      height: 48px;
+      width: auto;
+    }
+    .logo span {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: -0.02em;
+    }
+    .nav-menu {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .nav-menu a {
+      text-decoration: none;
+      font-weight: 500;
+      color: var(--dark);
+      transition: color 0.2s;
+      font-size: 1rem;
+    }
+    .nav-menu a:hover {
+      color: var(--primary-light);
+    }
+    .booking-link {
+      background-color: var(--primary);
+      color: white !important;
+      padding: 0.5rem 1.5rem;
+      border-radius: 40px;
+      font-weight: 600;
+    }
+    .booking-link:hover {
+      background-color: var(--primary-light);
+      color: white !important;
+    }
+    /* Mobile nav */
+    .menu-toggle {
+      display: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: var(--primary);
+    }
+
+    /* Hero (home) */
+    .hero {
+      background: linear-gradient(135deg, #0b4f6c 0%, #1d7a9c 100%);
+      color: white;
+      padding: 6rem 0;
+      position: relative;
+    }
+    .hero .container {
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+    .hero-content {
+      flex: 1 1 400px;
+    }
+    .hero-content h1 {
+      font-size: 3.2rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 1.2rem;
+    }
+    .hero-content p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      margin-bottom: 2rem;
+      max-width: 550px;
+    }
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .hero-image {
+      flex: 1 1 400px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 1.5rem;
+      backdrop-filter: blur(5px);
+      text-align: center;
+    }
+    .hero-image i {
+      font-size: 8rem;
+      color: var(--accent);
+      opacity: 0.8;
+    }
+    .hero-image p {
+      font-size: 1.1rem;
+      margin-top: 1rem;
+    }
+
+    /* About */
+    .about-grid {
+      display: flex;
+      gap: 3rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .about-text {
+      flex: 2 1 300px;
+    }
+    .about-text p {
+      color: var(--gray);
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+    .about-highlight {
+      font-weight: 600;
+      color: var(--primary);
+      font-size: 1.2rem;
+    }
+    .about-stats {
+      flex: 1 1 200px;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    .stat-item {
+      text-align: center;
+    }
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .stat-label {
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Facilities */
+    .facilities {
+      background-color: var(--light-bg);
+    }
+    .facilities-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 2.5rem;
+      margin-top: 2rem;
+    }
+    .facility-card {
+      background: white;
+      padding: 2rem 1.5rem;
+      border-radius: 24px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s;
+    }
+    .facility-card:hover {
+      transform: translateY(-5px);
+    }
+    .facility-card i {
+      font-size: 3rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+    .facility-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+    .facility-card p {
+      color: var(--gray);
+    }
+
+    /* Pricing */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .pricing-card {
+      background: white;
+      border-radius: 30px;
+      padding: 2.5rem 1.5rem;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(0,0,0,0.03);
+      transition: all 0.2s;
+      text-align: center;
+    }
+    .pricing-card.popular {
+      border: 2px solid var(--accent);
+      transform: scale(1.02);
+    }
+    .pricing-card .room-type {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--primary);
+    }
+    .pricing-card .price {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin: 1rem 0;
+      color: var(--dark);
+    }
+    .pricing-card .price small {
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--gray);
+    }
+    .pricing-card ul {
+      list-style: none;
+      margin: 1.5rem 0;
+      color: var(--gray);
+    }
+    .pricing-card li {
+      padding: 0.3rem 0;
+      border-bottom: 1px dashed #e5e7eb;
+    }
+    .pricing-card .btn {
+      margin-top: 1.5rem;
+    }
+
+    /* Location */
+    .location-grid {
+      display: flex;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+    .location-address {
+      flex: 1 1 250px;
+    }
+    .location-address h3 {
+      font-size: 1.6rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+    .address-detail {
+      margin-bottom: 1.5rem;
+      color: var(--gray);
+    }
+    .address-detail i {
+      width: 28px;
+      color: var(--accent);
+    }
+    .map-placeholder {
+      flex: 2 1 400px;
+      background: #d1dbe6;
+      border-radius: 30px;
+      height: 280px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--dark);
+      box-shadow: var(--shadow);
+    }
+    .map-placeholder i {
+      font-size: 4rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+    .map-placeholder p {
+      background: white;
+      padding: 0.5rem 1.5rem;
+      border-radius: 40px;
+      font-weight: 500;
+    }
+
+    /* Contact */
+    .contact {
+      background: var(--light-bg);
+    }
+    .contact-wrapper {
+      display: flex;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+    .contact-info {
+      flex: 1 1 250px;
+    }
+    .contact-info-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .contact-info-item i {
+      font-size: 1.8rem;
+      color: var(--primary);
+      width: 50px;
+      text-align: center;
+    }
+    .contact-form {
+      flex: 2 1 400px;
+      background: white;
+      padding: 2rem;
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+    }
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+    .form-group input, 
+    .form-group textarea {
+      width: 100%;
+      padding: 0.9rem 1.2rem;
+      border: 1px solid #e0e6ed;
+      border-radius: 40px;
+      font-family: inherit;
+      font-size: 1rem;
+      transition: 0.2s;
+    }
+    .form-group textarea {
+      border-radius: 24px;
+      resize: vertical;
+      min-height: 100px;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(11, 79, 108, 0.1);
+    }
+    .contact-form .btn {
+      width: 100%;
+      background: var(--primary);
+      color: white;
+    }
+    .contact-form .btn:hover {
+      background: var(--primary-light);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: #cbd5e0;
+      padding: 2rem 0;
+      text-align: center;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .nav-menu {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 1.5rem 0;
+      }
+      .nav-menu.show {
+        display: flex;
+      }
+      .menu-toggle {
+        display: block;
+      }
+      .booking-link {
+        align-self: flex-start;
+      }
+      .hero-content h1 {
+        font-size: 2.5rem;
+      }
+    }
+    @media (max-width: 600px) {
+      .section-title {
+        font-size: 2rem;
+      }
+      .hero-buttons {
+        flex-direction: column;
+      }
+      .btn {
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container header-container">
+      <div class="logo">
+        <!-- logo.png from assets folder -->
+        <img src="assets/logo.png" alt="Niaz De Coder Hotel Logo" onerror="this.src='https://placehold.co/48x48/0b4f6c/white?text=H'">
+        <span>Niaz De Coder</span>
+      </div>
+      <div class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></div>
+      <nav class="nav-menu" id="navMenu">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#facilities">Facilities</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#location">Location</a>
+        <a href="#contact">Contact</a>
+        <a href="booking.html" class="booking-link">Book now</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Home / Hero -->
+  <section id="home" class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>Escape to comfort, <br>right in the heart of the city</h1>
+        <p>Experience unmatched hospitality at Niaz De Coder Hotel — where modern luxury meets local charm.</p>
+        <div class="hero-buttons">
+          <a href="booking.html" class="btn btn-primary">Check availability</a>
+          <a href="#facilities" class="btn btn-outline">Explore hotel</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <i class="fas fa-umbrella-beach"></i>
+        <p>Your relaxing getaway begins here</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <div class="container">
+      <h2 class="section-title">About Niaz De Coder</h2>
+      <div class="about-grid">
+        <div class="about-text">
+          <p class="about-highlight">Where every stay feels like home.</p>
+          <p>Founded in 2025, Niaz De Coder Hotel brings together contemporary design and genuine hospitality. We’re nestled in a vibrant neighborhood, offering easy access to landmarks while providing a quiet sanctuary. Our team is dedicated to making your stay memorable — whether you’re here for business or leisure.</p>
+          <p>We believe in details: from the crisp linens to the locally sourced breakfast. Every corner is crafted for your comfort.</p>
+        </div>
+        <div class="about-stats">
+          <div class="stat-item">
+            <div class="stat-number">200+</div>
+            <div class="stat-label">Rooms</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">4.8</div>
+            <div class="stat-label">TripAdvisor</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">24/7</div>
+            <div class="stat-label">Concierge</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Facilities -->
+  <section id="facilities" class="facilities">
+    <div class="container">
+      <h2 class="section-title">Premium facilities</h2>
+      <div class="section-subtitle">Everything you need for a relaxing stay, all under one roof.</div>
+      <div class="facilities-grid">
+        <div class="facility-card"><i class="fas fa-swimming-pool"></i><h3>Infinity pool</h3><p>Panoramic city views</p></div>
+        <div class="facility-card"><i class="fas fa-dumbbell"></i><h3>Fitness center</h3><p>Modern equipment</p></div>
+        <div class="facility-card"><i class="fas fa-utensils"></i><h3>Restaurant</h3><p>Local & international</p></div>
+        <div class="facility-card"><i class="fas fa-wifi"></i><h3>Free Wi-Fi</h3><p>High-speed throughout</p></div>
+        <div class="facility-card"><i class="fas fa-spa"></i><h3>Spa & wellness</h3><p>Massage & sauna</p></div>
+        <div class="facility-card"><i class="fas fa-car"></i><h3>Parking</h3><p>Secure & free</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing">
+    <div class="container">
+      <h2 class="section-title">Rooms & suites</h2>
+      <div class="section-subtitle">Choose the perfect space for your stay — all include breakfast & Wi-Fi.</div>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <div class="room-type">Cozy Room</div>
+          <div class="price">$120 <small>/ night</small></div>
+          <ul>
+            <li>1 double bed</li>
+            <li>City view</li>
+            <li>Smart TV</li>
+          </ul>
+          <a href="booking.html" class="btn btn-outline" style="border-color:var(--primary); color:var(--primary);">Book</a>
+        </div>
+        <div class="pricing-card popular">
+          <div class="room-type">Deluxe Suite</div>
+          <div class="price">$210 <small>/ night</small></div>
+          <ul>
+            <li>King size bed</li>
+            <li>Sea view balcony</li>
+            <li>Lounge area</li>
+          </ul>
+          <a href="booking.html" class="btn btn-primary">Book</a>
+        </div>
+        <div class="pricing-card">
+          <div class="room-type">Family Suite</div>
+          <div class="price">$290 <small>/ night</small></div>
+          <ul>
+            <li>2 connecting rooms</li>
+            <li>2 bathrooms</li>
+            <li>Kitchenette</li>
+          </ul>
+          <a href="booking.html" class="btn btn-outline" style="border-color:var(--primary); color:var(--primary);">Book</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Location -->
+  <section id="location">
+    <div class="container">
+      <h2 class="section-title">Find us</h2>
+      <div class="location-grid">
+        <div class="location-address">
+          <h3>Niaz De Coder Hotel</h3>
+          <div class="address-detail"><i class="fas fa-map-pin"></i> 15 Avenue Habib Bourguiba, Tunis</div>
+          <div class="address-detail"><i class="fas fa-phone-alt"></i> +216 71 123 456</div>
+          <div class="address-detail"><i class="fas fa-envelope"></i> stay@niazdecoder.demo</div>
+          <div class="address-detail"><i class="fas fa-clock"></i> Check-in 15:00 / Check-out 11:00</div>
+        </div>
+        <div class="map-placeholder">
+          <i class="fas fa-map-marked-alt"></i>
+          <p>📍 Interactive map would be here</p>
+          <small>(Google Maps integration)</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="contact">
+    <div class="container">
+      <h2 class="section-title">Get in touch</h2>
+      <div class="contact-wrapper">
+        <div class="contact-info">
+          <div class="contact-info-item"><i class="fas fa-headset"></i> <span>24/7 front desk: +216 71 123 456</span></div>
+          <div class="contact-info-item"><i class="fas fa-envelope"></i> <span>reservations@niazdecoder.demo</span></div>
+          <div class="contact-info-item"><i class="fas fa-location-dot"></i> <span>15 Avenue Habib Bourguiba, Tunis</span></div>
+          <div class="contact-info-item"><i class="fas fa-globe"></i> <span>www.niazdecoder.demo (demo)</span></div>
+        </div>
+        <div class="contact-form">
+          <form id="demoContactForm">
+            <div class="form-group">
+              <input type="text" placeholder="Your name" required>
+            </div>
+            <div class="form-group">
+              <input type="email" placeholder="Email address" required>
+            </div>
+            <div class="form-group">
+              <textarea placeholder="Message / questions..."></textarea>
+            </div>
+            <button type="submit" class="btn">Send message</button>
+            <p style="font-size:0.85rem; margin-top:1rem; color:var(--gray);">Demo form — no data sent.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>© 2025 Niaz De Coder Hotel Demo. All rights reserved. | <a href="#home" style="color:var(--accent); text-decoration:none;">Back to top</a></p>
+      <p style="margin-top:1rem; font-size:0.9rem;">📍 assets/logo.png used — if missing, a placeholder is shown. For production, add high‑res images of your actual hotel.</p>
+    </div>
+  </footer>
+
+  <!-- JavaScript (mobile toggle + simple alert for demo form) -->
+  <script>
+    (function() {
+      // mobile menu toggle
+      const menuToggle = document.getElementById('menuToggle');
+      const navMenu = document.getElementById('navMenu');
+      if (menuToggle && navMenu) {
+        menuToggle.addEventListener('click', () => {
+          navMenu.classList.toggle('show');
+        });
+        // close menu when a link is clicked (optional)
+        const navLinks = navMenu.querySelectorAll('a');
+        navLinks.forEach(link => {
+          link.addEventListener('click', () => {
+            navMenu.classList.remove('show');
+          });
+        });
+      }
+
+      // contact form demo alert
+      const contactForm = document.getElementById('demoContactForm');
+      if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          alert('Thank you for your interest! This is a demo — in the real site we would respond promptly. ✨');
+          contactForm.reset();
+        });
+      }
+
+      // smooth scroll for anchor links (fallback, but we have CSS scroll-behavior)
+      // additional: active nav highlight could be added, but keep simple
+    })();
+  </script>
+  <!-- Note: additional images (like room photos) would enhance the demo. 
+       You can replace the hero image placeholder with an actual photo from Unsplash,
+       e.g., <img src="https://images.unsplash.com/..." alt="hotel"> 
+       But for this demo we kept it icon-based to avoid external dependencies. -->
+</body>
+</html>
